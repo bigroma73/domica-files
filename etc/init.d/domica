@@ -1,0 +1,8 @@
+#!/bin/sh
+modprobe ppp_generic
+modprobe ppp_async
+modprobe cdc-acm
+[ -e /media/hdd/swapfile ] && swapon /media/hdd/swapfile
+mount /media/usb
+gst-launch  filesrc  location=/etc/startup.mp3   ! mad ! audioconvert ! audioresample ! alsasink > /dev/null 2>&1
+exit 0

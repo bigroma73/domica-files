@@ -1,0 +1,8 @@
+#!/bin/sh 
+
+# This file should not be modified -- make local changes to 
+# /etc/ppp/ip-down.local instead 
+route del default 
+route add default gw "$5" 
+
+exit 0

@@ -1,0 +1,22 @@
+#
+# pppd options for the Motorola T260 
+# Replace the obvious lines with your username and modem device
+#
+# $Id: gprs-moto,v 1.1 2001/12/10 16:17:15 tjd21 Exp $
+
+name tjd21
+/dev/tts/1
+
+# Serial port line speed and options
+57600
+
+# Control character handling
+asyncmap 20A0000
+escape FF
+
+# Generic GPRS options
+file /etc/ppp/gprs-options
+
+# Chat scripts
+connect "/usr/sbin/chat -f /etc/ppp/chatscripts/gprs-moto-connect-chat"
+disconnect "/usr/sbin/chat -f /etc/ppp/chatscripts/gprs-disconnect-chat"

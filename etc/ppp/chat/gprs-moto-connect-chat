@@ -1,0 +1,67 @@
+# 
+# chat script to open Sonera GPRS service with a Motorola Timeport
+#
+# If ppp negotiation stalls, try restarting the phone. 
+# For more details of what the commands do, see ETSI TS 127 007
+# (AT command set for User Equipment), at http://www.etsi.org/,
+# and your phone's documentation.
+#
+# $Id: gprs-moto-connect-chat,v 1.5 2001/12/18 16:04:25 tjd21 Exp $
+
+# Boilerplate
+#
+	ABORT		'BUSY'
+	ABORT		'NO ANSWER'
+	ABORT		'NO CARRIER'
+	ABORT		'NO DIALTONE'
+	ABORT		'\nRINGING\r\n\r\nRINGING\r'
+	SAY		"GPRS modem init: press <ctrl>-C to disconnect"
+
+# Wake up the modem
+# 
+	TIMEOUT		5
+	''		'AT'
+	OK-ATQ0V1&C1-OK	'ATE1'
+	ABORT		'ERROR'
+	TIMEOUT		12
+
+# Reset to the factory defaults
+# Also, use '+CME ERROR' codes for ME errors, 'ERROR' for syntax errors
+#
+	OK		'AT&F'
+        OK		'AT+CMEE=2'
+
+# The Motorola has only one PDP context; we have no choice.
+# cid          = 1                 (which context)
+# PDP_type     = IP                (packet type)
+# APN          = mob.cl.cam.ac.uk  (GGSN)
+# PDP_addr     = "0.0.0.0"         (our address, null means they choose)
+# data_comp    = 0                 (data compression)
+# head_comp    = 0                 (header compression)
+#
+	OK		'AT+CGDCONT=1,"IP","mob.cl.cam.ac.uk","0.0.0.0",0,0'
+	SAY		"\n + defining PDP context"
+
+# QoS requested, and minimum accptable, for our context
+# (<cid>,<precedence>,<delay>,<reliability>,<peak>,<mean>)
+# "0" means let the network pick.
+#
+	OK		'AT+CGQREQ=1,0,0,0,0,0'
+	SAY		"\n + defining QoS requirements"
+	OK		'AT+CGQMIN=1,0,0,0,0,0'
+
+# Attach to the GPRS service.  Strictly, we don't need this step,
+# as AT+CGDATA will do it for us, but doing it explicitly makes it
+# a little easier to debug.
+#
+	TIMEOUT		45
+	OK		'AT+CGATT=1'
+	SAY		"\n + attaching to GPRS"
+
+# Enter data state
+# Motorola doesn't do the CGDATA command, use the magic number instead
+	OK		'ATD*99#'
+	SAY		"\n + requesting data connection"
+	CONNECT		''
+	SAY		"\n + connected"
+

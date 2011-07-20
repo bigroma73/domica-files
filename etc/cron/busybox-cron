@@ -1,0 +1,53 @@
+#!/bin/sh
+DAEMON=/usr/sbin/crond
+NAME=crond
+DESC="Busybox Periodic Command Scheduler"
+ARGS="-c /etc/cron/crontabs"
+
+
+test -f $DAEMON || exit 0
+
+set -e
+
+case "$1" in
+    start)
+        echo -n "starting $DESC: $NAME... "
+        if [ ! -f /bin/neutrino ]; then
+	   start-stop-daemon -S -b -n $NAME -a $DAEMON -- $ARGS
+        else
+	   crond -S -b $ARGS
+        fi
+	echo "done."
+	;;
+    stop)
+        echo -n "stopping $DESC: $NAME... "
+        if [ ! -f /bin/neutino ]; then
+    	   start-stop-daemon -K -n $NAME
+        else
+	   killall crond
+        fi
+	echo "done."
+	;;
+    restart)
+        echo -n "restarting $DESC: $NAME... "
+ 	$0 stop
+	$0 start
+	echo "done."
+	;;
+    reload)
+    	echo -n "reloading $DESC: $NAME... "
+        if [ ! -f /bin/neutino ]; then
+    	   killall -HUP $(basename ${DAEMON})
+        else
+    	   $0 stop
+	   $0 start
+        fi
+	echo "done."
+	;;
+    *)
+	echo "Usage: $0 {start|stop|restart|reload}"
+	exit 1
+	;;
+esac
+
+exit 0

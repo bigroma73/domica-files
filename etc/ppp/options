@@ -1,0 +1,37 @@
+# General options for making GPRS connections
+# 
+# $Id: gprs-options,v 1.2 2002/01/15 16:28:40 tjd21 Exp $
+
+# Change this line to 'defaultroute' if you want to use the GPRS link 
+# as your gateway.
+defaultroute
+
+# Comment this line out to let pppd background itself.
+nodetach
+
+# Turn this on to see all the PPP negotiations
+#debug
+
+# *** Below this line you probably won't need to change.
+
+# Limit the MTU (workaround for an oddity in the VPN)
+mtu 1400
+
+# Use hardware flow conrtrol
+#crtscts
+
+# Let the phone figure out all the IP addresses
+noipdefault
+ipcp-accept-local
+ipcp-accept-remote
+
+# No ppp compression
+novj
+novjccomp
+
+# For sanity, keep a lock on the serial line
+lock
+
+#get DNS from BeeLine (see GPRS Settings on www.beelinegsm.ru)
+usepeerdns
+disconnect /etc/ppp/gprs-disconnect-chat

@@ -1,0 +1,28 @@
+# pppd options for the SIEMENS phone
+# Replace the obvious lines with your username and modem device
+#
+# $Id: gprs-moto,v 1.1 2001/12/10 16:17:15 tjd21 Exp $
+
+name diallog
+
+# Here is for rs232 serial cable
+#/dev/tts/0
+
+# Here is for USB serial cable
+/dev/ttyACM0
+
+# Serial port line speed and options
+921600
+
+# Control character handling
+#asyncmap 20A0000
+#escape FF
+
+# Generic GPRS options
+file /etc/ppp/gprs-options
+
+# Chat scripts
+connect "/usr/sbin/chat -f /etc/ppp/chat/gprs-siem-connect-chat"
+#connect "/etc/ppp/chat/gprs-siem-connect-chat"
+disconnect "/usr/sbin/chat -f /etc/ppp/chat/gprs-disconnect-chat"
+

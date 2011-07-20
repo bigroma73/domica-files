@@ -1,0 +1,15 @@
+# Example of option.pptpd file for pptp protocol
+# http://www.dreambox.org.ua
+
+name diallog
+remotename pptpd
+defaultroute
+noauth
+asyncmap 0
+crtscts
+lock
+local
+noproxyarp
+lcp-echo-interval 30
+lcp-echo-failure 4
+noipx

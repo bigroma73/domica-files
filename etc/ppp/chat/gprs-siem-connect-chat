@@ -1,0 +1,26 @@
+# chat script to open GPRS service with a SIEMENS
+#
+# If ppp negotiation stalls, try restarting the phone. 
+# For more details of what the commands do, see ETSI TS 127 007
+# (AT command set for User Equipment), at http://www.etsi.org/,
+# and your phone's documentation.
+#
+# $Id: gprs-siem-connect-chat,v 1.5 2001/12/18 16:04:25 tjd21 Exp $
+
+
+TIMEOUT 5
+        ECHO    ON
+        ABORT   '\nBUSY\r'
+        ABORT   '\nERROR\r'
+        ABORT   '\nNO ANSWER\r'
+        ABORT   '\nNO CARRIER\r'
+        ABORT   '\nNO DIALTONE\r'
+        ABORT   '\nRINGING\r\n\r\nRINGING\r'
+        ''              \rAT
+        TIMEOUT 12
+        OK              ATZ
+        OK              ATH
+        OK              ATE1
+        OK              AT+CGDCONT=1,"IP","internet.beeline.ru"
+        OK              ATD*99***1#
+        CONNECT

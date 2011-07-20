@@ -1,0 +1,35 @@
+#
+#
+# $Id: gprs-disconnect-chat,v 1.2 2001/12/17 17:29:27 tjd21 Exp $
+
+# Boilerplate
+#
+##	ABORT		BUSY
+##	ABORT		ERROR
+##	ABORT		'NO DIALTONE'
+##	TIMEOUT		30
+
+# Get some attention
+##	''		'+++\c'
+##	SAY		" + sending break" 
+
+# Hang up data connection
+#
+##	''		'ATH'
+##	SAY		"\n + dropping data connection"
+
+# Disconnect from GPRS
+##	OK		'AT+CGATT=0'
+##	SAY		"\n + disconnecting from GPRS"
+##	OK		'\c'
+##	SAY		"\n + disconnected."
+
+ABORT           "BUSY"  
+ABORT           "ERROR"
+ABORT           "NO DIALTONE"
+SAY             "\nSending break to the modem\n"
+""              "\K"
+""              "+++ATH"
+""		"AT+CGATT=0\d\d\d\d\d"
+##SAY             "\nPDP context detached\n"
+
