@@ -13,7 +13,9 @@ class ServiceInfo2(Converter, object):
 	xAPID = 0
 	xVPID = 1
 	xSID = 2
-	sCAIDs = 3
+	xONID = 3
+	xTSID = 4
+	sCAIDs = 5
 
 	def __init__(self, type):
 		Converter.__init__(self, type)
@@ -21,6 +23,8 @@ class ServiceInfo2(Converter, object):
 				"xAPID": (self.xAPID, (iPlayableService.evUpdatedInfo,)),
 				"xVPID": (self.xVPID, (iPlayableService.evUpdatedInfo,)),
 				"xSID": (self.xSID, (iPlayableService.evUpdatedInfo,)),
+				"xOnId": (self.xONID, (iPlayableService.evUpdatedInfo,)),
+				"xTsId": (self.xTSID, (iPlayableService.evUpdatedInfo,)),
 				"CAIDs": (self.sCAIDs, (iPlayableService.evUpdatedInfo,)),
 			}[type]
 
@@ -66,6 +70,16 @@ class ServiceInfo2(Converter, object):
 		elif self.type == self.xSID:
 			try:
 				return "%0.4X" % int(self.getServiceInfoString(info, iServiceInformation.sSID))
+			except:
+				return "N/A"
+		elif self.type == self.xTSID:
+			try:
+				return "%0.4X" % int(self.getServiceInfoString(info, iServiceInformation.sTSID))
+			except:
+				return "N/A"
+		elif self.type == self.xONID:
+			try:
+				return "%0.4X" % int(self.getServiceInfoString(info, iServiceInformation.sONID))
 			except:
 				return "N/A"
 		elif self.type == self.sCAIDs:
