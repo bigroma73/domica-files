@@ -19,7 +19,7 @@ except:
 	pass
 
 swapfile = "/media/hdd/swapfile"
-domica_pluginversion = "Domica image 8.0"
+domica_pluginversion = "Domica image 9.0"
 ntpserver = "0.ua.pool.ntp.org"
 time_programm = "/usr/sbin/ntpdate"
 backup_programm = "/usr/bin/build-nfi-image.sh"
