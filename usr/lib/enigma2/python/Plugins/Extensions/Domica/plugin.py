@@ -192,14 +192,6 @@ class DomicaSubMenu(Screen):
 		elif  m_choice is "2":
 			p=os.popen("rm /tmp/*.ipk")
 			self.session.openWithCallback(self.close,MessageBox,(_("*.ipk removed")), MessageBox.TYPE_INFO,timeout=3)
-		elif  m_choice is "3":
-			p=os.popen("ipkg update")
-			tempstr = p.read()
-			self.session.open(MessageBox,tempstr, MessageBox.TYPE_INFO)
-		elif  m_choice is "4":
-			#self.session.open(MessageBox,("Unknown choice"), MessageBox.TYPE_INFO)
-			p=os.popen("ipkg upgrade")
-			self.session.openWithCallback(self.close,MessageBox,(_("Image Updated")), MessageBox.TYPE_INFO,timeout=3)
 		else:
 			self.session.open(MessageBox,(_("Unknown choice")), MessageBox.TYPE_INFO)
 
@@ -256,7 +248,7 @@ class Domica(Screen):
 	skin = """
 		<screen position="center,center" size="640,320" title="%s" >
 			<widget name="menu" position="20,65"	size="600,255" />
-			ePixmap position="20,10" zPosition="1" size="600,40"  transparent="1" alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Domica/domica-plugin.png" />
+			<ePixmap position="20,10" zPosition="1" size="600,40"  transparent="1" alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Domica/domica-plugin.png" />
 			<widget source="session.CurrentService" render="EmuLabel" zPosition="5" position="370,69" size="250,20" font="Regular;18" foregroundColor="#6a7a8a" halign="right" transparent="1"/>
 		</screen>""" % _("Menu Domica Plugin")
 
@@ -290,7 +282,7 @@ class Domica(Screen):
 
 		if m_choice is "0":
 			os.system("/etc/rcS.d/S50emu restart")
-			self.session.open(MessageBox,_("Emu restarting"), MessageBox.TYPE_INFO, timeout=4)
+			self.session.openWithCallback(self.close,MessageBox,_("Emu restarting"), MessageBox.TYPE_INFO, timeout=4)
 		elif m_choice is "1":
 			self.session.open(EmuStarter)
 		elif m_choice is "2":

@@ -10,21 +10,21 @@ class DiskInfo2(Screen):
 	suffix = 'GB'
 	div_s = 1048576.0
 	skin = """
-	<screen position="225,180" size="830,380" title="DiskInfo2" >
-			<eLabel position="80,10"  size="2,360" backgroundColor="blue_tux2" />
-			<eLabel position="80,200" size="420,3" backgroundColor="blue_tux2" />
-			<widget source="HDD_Model"       render="Label" position="100,45"  size="420,25" font="Regular;20" />
-			<widget source="HDD_FS"          render="Label" position="100,70"  size="420,25" font="Regular;20" />
-			<widget source="HDD_Size"        render="Label" position="100,95"  size="420,25" font="Regular;20" />
-			<widget source="HDD_Used"        render="Label" position="100,120"  size="420,25" font="Regular;20" />
-			<widget source="HDD_Free"        render="Label" position="100,145"  size="420,25" font="Regular;20" />
-			<widget source="HDD_Usage"       render="Label" position="100,170"  size="420,25" font="Regular;20" />
-			<widget source="USB_Model"       render="Label" position="100,205" size="420,25" font="Regular;20" />
-			<widget source="USB_FS"			 render="Label" position="100,230" size="420,25" font="Regular;20" />
-			<widget source="USB_Size"		 render="Label" position="100,255" size="420,25" font="Regular;20" />
-			<widget source="USB_Used"		 render="Label" position="100,280"	size="420,25" font="Regular;20" />
-			<widget source="USB_Free"		 render="Label" position="100,305"	size="420,25" font="Regular;20" />
-			<widget source="USB_Usage"		 render="Label" position="100,330"	size="420,25" font="Regular;20" />
+	<screen position="center,190" size="440,380" title="DiskInfo2">
+			<ePixmap position="305,10" zPosition="2" size="124,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Domica/diskinfo2.png" />
+			<eLabel position="15,200" size="410,3" />
+			<widget source="HDD_Model" render="Label" position="10,45" size="420,25" font="Regular;20" />
+			<widget source="HDD_FS" render="Label" position="10,70" size="420,25" font="Regular;20" />
+			<widget source="HDD_Size" render="Label" position="10,95" size="420,25" font="Regular;20" />
+			<widget source="HDD_Used" render="Label" position="10,120" size="420,25" font="Regular;20" />
+			<widget source="HDD_Free" render="Label" position="10,146" size="420,25" font="Regular;20" />
+			<widget source="HDD_Usage" render="Label" position="10,170" size="420,25" font="Regular;20" />
+			<widget source="USB_Model" render="Label" position="10,205" size="420,25" font="Regular;20" />
+			<widget source="USB_FS" render="Label" position="10,230" size="420,25" font="Regular;20" />
+			<widget source="USB_Size" render="Label" position="10,255" size="420,25" font="Regular;20" />
+			<widget source="USB_Used" render="Label" position="10,280" size="420,25" font="Regular;20" />
+			<widget source="USB_Free" render="Label" position="10,305" size="420,25" font="Regular;20" />
+			<widget source="USB_Usage" render="Label" position="10,330" size="420,25" font="Regular;20" />
 	</screen>"""
 
 	def __init__(self, session):

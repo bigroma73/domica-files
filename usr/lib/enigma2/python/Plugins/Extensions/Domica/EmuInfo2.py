@@ -7,11 +7,12 @@ from enigma import iServiceInformation, iPlayableService
 
 class EmuInfo2(Screen):
 	skin="""
-	<screen position="125,80" size="1030,580" title="EmuInfo2" >
-		<widget source="Emu"		render="Label" position="100,45"  size="200,25" font="Regular;20" />
-		<widget source="status"		render="Label" position="310,45"  size="200,25" font="Regular;20" />
-		<widget source="Recon"		render="Label" position="520,45"  size="200,25" font="Regular;20" />
-		<widget name="menu" position="20,85"	size="900,455" scrollbarMode="showOnDemand" enableWrapAround="1" />
+	<screen position="center,120" size="920,515" title="EmuInfo2" >
+		<ePixmap position="786,10" zPosition="2" size="124,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Domica/emuinfo2.png" />
+		<widget source="Emu" render="Label" position="10,10" size="200,25" font="Regular;20" zPosition="1" />
+		<eLabel position="15,40" size="890,3" zPosition="2" />
+		<widget source="status" render="Label" position="230,10" size="200,25" font="Regular;20" zPosition="1" />
+		<widget name="menu" position="10,50" size="900,455" scrollbarMode="showOnDemand" enableWrapAround="1" zPosition="1" />
 	</screen>"""
 
 	def __init__(self, session):
