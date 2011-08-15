@@ -21,7 +21,7 @@ except:
 swapfile = "/media/hdd/swapfile"
 domica_pluginversion = "Domica image 9.0"
 ntpserver = "0.ua.pool.ntp.org"
-time_programm = "/usr/sbin/ntpdate"
+time_programm = "/usr/bin/ntpdate"
 backup_programm = "/usr/bin/build-nfi-image.sh"
 
 session = None
@@ -79,8 +79,6 @@ class DomicaSubMenu(Screen):
 			ipkmenu.append((_("List ipk packages"),"0"))
 			ipkmenu.append((_("Install *.ipk from /tmp"),"1"))
 			ipkmenu.append((_("Remove *.ipk"),"2"))
-			ipkmenu.append((_("ipkg update"),"3"))
-			ipkmenu.append((_("ipkg upgrade"),"4"))
 
 			self["list"] = MenuList(ipkmenu)
 			self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.IpkMenu, "cancel": self.close}, -1)
@@ -180,7 +178,7 @@ class DomicaSubMenu(Screen):
 			tempstr = "\n"
 			for file in os.listdir('/tmp/'):
 				if fnmatch.fnmatch(file, '*.ipk'):
-					tempstp += file
+					tempstr += file
 					tempstr += "\n"
 			if tempstr == "\n":
 				tempstr = "No *.ipk files found in /tmp"
