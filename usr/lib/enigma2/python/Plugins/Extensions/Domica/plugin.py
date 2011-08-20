@@ -10,7 +10,7 @@ from Screens.MessageBox import MessageBox
 from DiskInfo2 import DiskInfo2
 from EmuInfo2 import EmuInfo2
 from Screens.PluginBrowser import PluginBrowser
-from Components.Console import Console
+from Screens.Console import Console
 import fnmatch
 import os
 try:
@@ -19,10 +19,11 @@ except:
 	pass
 
 swapfile = "/media/hdd/swapfile"
-domica_pluginversion = "Domica image 9.0"
+domica_pluginversion = "Domica image 8.0"
 ntpserver = "0.ua.pool.ntp.org"
 time_programm = "/usr/bin/ntpdate"
 backup_programm = "/usr/bin/build-nfi-image.sh"
+emu_close=0
 
 session = None
 
@@ -59,7 +60,6 @@ class DomicaSubMenu(Screen):
 		self.sub_m=sub_m
 		self.skin=DomicaSubMenu.skin
 		self.consoleresults = {}
-		self.DomicaConsole = Console()
 		self.session = session
 		Screen.__init__(self, session)
 
@@ -68,7 +68,18 @@ class DomicaSubMenu(Screen):
 			emumenu.append((_("Start softcam"),"0"))
 			emumenu.append((_("Stop softcam"),"1"))
 			emumenu.append((_("Remove active softcam"),"2"))
-			emumenu.append((_("Softcam current info"),"3"))
+			emumenu.append(("mgcamd-1.35a","3"))
+			emumenu.append(("cccam-2.2.1","4"))
+			try:
+				emus = os.listdir("/usr/emu")
+				i=5
+				for emu in emus:
+					if emu.endswith('.sh') and emu[:-3] != "mgcamd-1.35a" and emu[:-3] != "cccam-2.2.1":
+						emumenu.append((emu[:-3],"%s" %i))
+						i+=1
+			except:
+				pass
+#			emumenu.append((_("Softcam current info"),"3"))
 
 			self["list"] = MenuList(emumenu)
 			self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.EmuMenu, "cancel": self.close}, -1)
@@ -76,14 +87,44 @@ class DomicaSubMenu(Screen):
 			self.CfgMenu()
 		elif sub_m is "Ipk":
 			ipkmenu = []
-			ipkmenu.append((_("List ipk packages"),"0"))
-			ipkmenu.append((_("Install *.ipk from /tmp"),"1"))
-			ipkmenu.append((_("Remove *.ipk"),"2"))
-
-			self["list"] = MenuList(ipkmenu)
-			self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.IpkMenu, "cancel": self.close}, -1)
+			files=os.listdir('/tmp')
+			i=0
+			for file in sorted(files):
+				if  file.endswith('.ipk'):
+					ipkmenu.append((file[:-4],"%s" %i))
+					i+=1
+			if ipkmenu == []:
+				ipkmenu.append(("No packages","0"))
+				self["list"] = MenuList(ipkmenu)
+				self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.close, "cancel": self.close}, -1)
+			else:
+				self["list"] = MenuList(ipkmenu)
+				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], 
+									{"ok": self.instOne, 
+									"cancel": self.close,
+									"red": self.instOne,
+									"green": self.instAll,
+									"yellow": self.rmOne,
+									"blue": self.rmAll
+									}, -1)
 		else:
 			self.session.open(MessageBox,_("Unknown choice"), MessageBox.TYPE_INFO)
+
+
+	def instOne(self):
+		name = ("ipkg install /tmp/%s.ipk" % self["list"].getCurrent()[0])
+		self.session.open(Console,title = "Console",cmdlist = [name])
+		#self.session.open(MessageBox,name, MessageBox.TYPE_INFO,timeout=3)
+		
+
+	def instAll(self):
+		self.session.openWithCallback(self.close,MessageBox,("ipkg install /tmp/*.ipk"), MessageBox.TYPE_INFO,timeout=3)
+
+	def rmOne(self):
+		self.session.openWithCallback(self.close,MessageBox,("rm %s" % self["list"].getCurrent()[0]), MessageBox.TYPE_INFO,timeout=3)
+		
+	def rmAll(self):
+		self.session.openWithCallback(self.close,MessageBox,("rm"), MessageBox.TYPE_INFO,timeout=3)
 
 	def isSwapPossible(self):
 		f = open("/proc/mounts", "r")
@@ -154,44 +195,48 @@ class DomicaSubMenu(Screen):
 			return 1
 
 	def EmuMenu(self):
-		m_choice = self["list"].getCurrent()[1]
-		if m_choice is "0":
+		m_choice = self["list"].getCurrent()
+		emu_close=1
+		if m_choice[1] is "0":
 			os.system("/etc/rcS.d/S50emu start")
 			self.session.openWithCallback(self.close,MessageBox,(_("Emu started")), MessageBox.TYPE_INFO,timeout=3)
-		elif m_choice is "1":
+		elif m_choice[1] is "1":
 			os.system("/etc/rcS.d/S50emu stop")
 			self.session.openWithCallback(self.close,MessageBox,(_("Emu stoped")), MessageBox.TYPE_INFO,timeout=3)
-		elif m_choice is "2":
+		elif m_choice[1] is "2":
+			os.system("/etc/rcS.d/S50emu stop")
 			f = open("/etc/active_emu.list","w")
 			f.write("No emu")
 			f.close()
-			os.system("/etc/rcS.d/S50emu stop")
 			self.session.openWithCallback(self.close,MessageBox,(_("Emu disabled")), MessageBox.TYPE_INFO,timeout=3)
-		elif m_choice is "3":
-			self.session.open(EmuInfo2)
+		elif m_choice[1] is "3":
+			os.system("/etc/rcS.d/S50emu stop")
+			if not os.path.exists("/usr/emu/mgcamd-1.35a.sh"):
+				os.system("ipkg update > /dev/null")
+				os.system("ipkg install softcam-mgcamd_1.35a-r0_mipsel > /dev/null")
+			f = open("/etc/active_emu.list","w")
+			f.write(m_choice[0])
+			f.close()
+			os.system("/etc/rcS.d/S50emu start")
+			self.close()
+		elif m_choice[1] is "4":
+			os.system("/etc/rcS.d/S50emu stop")
+			if not os.path.exists("/usr/emu/cccam-2.2.1.sh"):
+				os.system("ipkg update > /dev/null")
+				os.system("ipkg installsoftcam-cccam_2.2.1-r0_mipsel > /dev/null")
+			f = open("/etc/active_emu.list","w")
+			f.write(m_choice[0])
+			f.close()
+			os.system("/etc/rcS.d/S50emu start")
+			self.close()
 		else:
-			self.session.open(MessageBox,("Menu Domica Plugin %s\nby Domica Forum www.domica.biz !") % command, MessageBox.TYPE_INFO)
+			os.system("/etc/rcS.d/S50emu stop")
+			f = open("/etc/active_emu.list","w")
+			f.write(m_choice[0])
+			f.close()
+			os.system("/etc/rcS.d/S50emu start")
+			self.close()
 
-	def IpkMenu(self):
-		m_choice = self["list"].getCurrent()[1]
-		if m_choice is "0":
-			tempstr = "\n"
-			for file in os.listdir('/tmp/'):
-				if fnmatch.fnmatch(file, '*.ipk'):
-					tempstr += file
-					tempstr += "\n"
-			if tempstr == "\n":
-				tempstr = "No *.ipk files found in /tmp"
-			self.session.open(MessageBox,tempstr, MessageBox.TYPE_INFO)
-		elif  m_choice is "1":
-			p=os.popen("ipkg install /tmp/*.ipk")
-			tempstr = p.read()
-			self.session.open(MessageBox,tempstr, MessageBox.TYPE_INFO)
-		elif  m_choice is "2":
-			p=os.popen("rm /tmp/*.ipk")
-			self.session.openWithCallback(self.close,MessageBox,(_("*.ipk removed")), MessageBox.TYPE_INFO,timeout=3)
-		else:
-			self.session.open(MessageBox,(_("Unknown choice")), MessageBox.TYPE_INFO)
 
 	def CfgMenuDo(self):
 		m_choice = self["list"].getCurrent()[1]
@@ -258,10 +303,9 @@ class Domica(Screen):
 
 		mainmenu = []
 		mainmenu.append((_("Restart cam"),"0"))
-		mainmenu.append((_("Activate softcams"),"1"))
 		mainmenu.append((_("Plugins"),"2"))
 		mainmenu.append((_("Configure"),"3"))
-		mainmenu.append((_("Sharing menu"),"4"))
+		mainmenu.append((_("Cam menu"),"4"))
 		mainmenu.append((_("Disks usage information"),"5"))
 		try:
 			from Plugins.Extensions.ScriptExecuter.plugin import ScriptExecuter
@@ -281,14 +325,14 @@ class Domica(Screen):
 		if m_choice is "0":
 			os.system("/etc/rcS.d/S50emu restart")
 			self.session.openWithCallback(self.close,MessageBox,_("Emu restarting"), MessageBox.TYPE_INFO, timeout=4)
-		elif m_choice is "1":
-			self.session.open(EmuStarter)
 		elif m_choice is "2":
 			self.session.open(PluginBrowser)
 		elif m_choice is "3":
 			self.session.open(DomicaSubMenu,"Cfg")
 		elif m_choice is "4":
+			emu_close=0
 			self.session.open(DomicaSubMenu,"Emu")
+			self.close()
 		elif m_choice is "5":
 			self.session.open(DiskInfo2)
 		elif  m_choice is "6":
@@ -308,3 +352,11 @@ def Plugins(**kwargs):
 			return [PluginDescriptor(where = [PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc = autostart),PluginDescriptor(name="Domica",
 					description="Menu Domica Plugin", where = PluginDescriptor.WHERE_PLUGINMENU, icon="domica.png", fnc=main)]
 
+files=os.listdir('/tmp')
+ipkfile=[]
+i=0
+for file in files:
+	if  file.endswith('.ipk'):
+		ipkfile.append((file,"%s" %i))
+		i+=1
+print ipkfile

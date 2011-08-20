@@ -1,0 +1,20 @@
+#!/bin/sh
+elist=$(/bin/cat /etc/active_emu.list)
+if [ "$elist" == "No emu" ]
+then
+exit 0
+fi
+
+case "$1" in
+restart)
+/usr/emu/$elist.sh stop
+/usr/emu/$elist.sh start
+exit 0
+;;
+*)
+/usr/emu/$elist.sh $1
+exit 0
+;;
+esac
+
+exit 0
