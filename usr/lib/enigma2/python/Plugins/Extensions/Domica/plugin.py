@@ -11,6 +11,7 @@ from DiskInfo2 import DiskInfo2
 from EmuInfo2 import EmuInfo2
 from Screens.PluginBrowser import PluginBrowser
 from Screens.Console import Console
+from Components.Sources.StaticText import StaticText
 import fnmatch
 import os
 try:
@@ -23,7 +24,7 @@ domica_pluginversion = "Domica image 8.0"
 ntpserver = "0.ua.pool.ntp.org"
 time_programm = "/usr/bin/ntpdate"
 backup_programm = "/usr/bin/build-nfi-image.sh"
-emu_close=0
+
 
 session = None
 
@@ -53,8 +54,16 @@ def main(session,**kwargs):
 class DomicaSubMenu(Screen):
 	skin = """
 	<screen position="center,center" size="640,320" title="Menu Domica Plugin" >
-			<widget name="list" position="20,65" size="600,255"  scrollbarMode="showOnDemand" enableWrapAround="1" />
+			<widget name="list" position="20,65" size="600,205"  scrollbarMode="showOnDemand" enableWrapAround="1" />
 			<ePixmap            position="20,10" size="600,40" zPosition="1" transparent="1" alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Domica/domica-plugin.png" />
+			<ePixmap pixmap="hd-line_tvpro/buttons/red.png"    position="40,280" size="16,16"  alphatest="blend" />
+			<ePixmap pixmap="hd-line_tvpro/buttons/green.png"  position="190,280" size="16,16"  alphatest="blend" />
+			<ePixmap pixmap="hd-line_tvpro/buttons/yellow.png" position="340,280" size="16,16"  alphatest="blend" />
+			<ePixmap pixmap="hd-line_tvpro/buttons/blue.png"   position="490,280" size="16,16"  alphatest="blend" />
+			<widget source="key_red" render="Label" position="65,280" size="120,24" font="Regular;17" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
+			<widget source="key_green"    render="Label" position="215,280" size="120,22" font="Regular;17" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
+			<widget source="key_yellow"   render="Label" position="365,280" size="120,22" font="Regular;17" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
+			<widget source="key_blue"     render="Label" position="515,280" size="120,22" font="Regular;1" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
 	</screen>"""
 	def __init__(self,session,sub_m):
 		self.sub_m=sub_m
@@ -62,6 +71,10 @@ class DomicaSubMenu(Screen):
 		self.consoleresults = {}
 		self.session = session
 		Screen.__init__(self, session)
+		self["key_red"] =  StaticText(" ")
+		self["key_green"] =  StaticText(" ")
+		self["key_yellow"] =  StaticText(" ")
+		self["key_blue"] =  StaticText(" ")
 
 		if sub_m is "Emu":
 			emumenu = []
@@ -95,14 +108,19 @@ class DomicaSubMenu(Screen):
 					i+=1
 			if ipkmenu == []:
 				ipkmenu.append(("No packages","0"))
+				self["key_red"].text =  "Online update"
 				self["list"] = MenuList(ipkmenu)
-				self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.close, "cancel": self.close}, -1)
+				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], {"ok": self.close, "cancel": self.close, "red": self.updIpk}, -1)
 			else:
+				self["key_red"].text =  "Online update"
+				self["key_green"].text =  "Install all"
+				self["key_yellow"].text =  "Remove"
+				self["key_blue"].text =  "Remove All"
 				self["list"] = MenuList(ipkmenu)
 				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], 
 									{"ok": self.instOne, 
 									"cancel": self.close,
-									"red": self.instOne,
+									"red": self.updIpk,
 									"green": self.instAll,
 									"yellow": self.rmOne,
 									"blue": self.rmAll
@@ -110,21 +128,26 @@ class DomicaSubMenu(Screen):
 		else:
 			self.session.open(MessageBox,_("Unknown choice"), MessageBox.TYPE_INFO)
 
+	def updIpk(self):
+		name = ("ipkg update && ipkg upgrade")
+		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+
 
 	def instOne(self):
 		name = ("ipkg install /tmp/%s.ipk" % self["list"].getCurrent()[0])
-		self.session.open(Console,title = "Console",cmdlist = [name])
-		#self.session.open(MessageBox,name, MessageBox.TYPE_INFO,timeout=3)
-		
+		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 	def instAll(self):
-		self.session.openWithCallback(self.close,MessageBox,("ipkg install /tmp/*.ipk"), MessageBox.TYPE_INFO,timeout=3)
+		name = ("ipkg install *.ipk")
+		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 	def rmOne(self):
-		self.session.openWithCallback(self.close,MessageBox,("rm %s" % self["list"].getCurrent()[0]), MessageBox.TYPE_INFO,timeout=3)
-		
+		os.system("rm /tmp/%s.ipk" % self["list"].getCurrent()[0])
+		self.session.openWithCallback(self.close,MessageBox,(_("Package removed")), MessageBox.TYPE_INFO,timeout=3)
+
 	def rmAll(self):
-		self.session.openWithCallback(self.close,MessageBox,("rm"), MessageBox.TYPE_INFO,timeout=3)
+		os.system("rm /tmp/*.ipk")
+		self.session.openWithCallback(self.close,MessageBox,(_("Packages removed")), MessageBox.TYPE_INFO,timeout=3)
 
 	def isSwapPossible(self):
 		f = open("/proc/mounts", "r")
@@ -196,7 +219,6 @@ class DomicaSubMenu(Screen):
 
 	def EmuMenu(self):
 		m_choice = self["list"].getCurrent()
-		emu_close=1
 		if m_choice[1] is "0":
 			os.system("/etc/rcS.d/S50emu start")
 			self.session.openWithCallback(self.close,MessageBox,(_("Emu started")), MessageBox.TYPE_INFO,timeout=3)
@@ -212,8 +234,8 @@ class DomicaSubMenu(Screen):
 		elif m_choice[1] is "3":
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/mgcamd-1.35a.sh"):
-				os.system("ipkg update > /dev/null")
-				os.system("ipkg install softcam-mgcamd_1.35a-r0_mipsel > /dev/null")
+				name = ("ipkg update && ipkg install softcam-mgcamd_1.35a-r0_mipsel")
+				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
 			f.close()
@@ -222,8 +244,8 @@ class DomicaSubMenu(Screen):
 		elif m_choice[1] is "4":
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/cccam-2.2.1.sh"):
-				os.system("ipkg update > /dev/null")
-				os.system("ipkg installsoftcam-cccam_2.2.1-r0_mipsel > /dev/null")
+				name = ("ipkg update && ipkg install softcam-cccam_2.2.1-r0_mipsel")
+				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
 			f.close()
@@ -259,8 +281,7 @@ class DomicaSubMenu(Screen):
 			restartbox.setTitle(_("Restart GUI now?"))
 		elif m_choice is "3":
 			tmpstr=backup_programm + " /media/hdd"
-			os.system(tmpstr)
-			self.session.open(MessageBox,(_("Backup creating\nPlease Wait")) , MessageBox.TYPE_INFO)
+			self.session.open(Console,title = "Backup to HDD",cmdlist = [tmpstr], finishedCallback = self.close,closeOnSuccess = True)
 		elif m_choice is "4":
 			tmpstr="swapon " + swapfile
 			os.system(tmpstr)
@@ -303,16 +324,16 @@ class Domica(Screen):
 
 		mainmenu = []
 		mainmenu.append((_("Restart cam"),"0"))
-		mainmenu.append((_("Plugins"),"2"))
-		mainmenu.append((_("Configure"),"3"))
 		mainmenu.append((_("Cam menu"),"4"))
+		mainmenu.append((_("Ipk Menu"),"7"))
+		mainmenu.append((_("Configure"),"3"))
+		mainmenu.append((_("Plugins"),"2"))
 		mainmenu.append((_("Disks usage information"),"5"))
 		try:
 			from Plugins.Extensions.ScriptExecuter.plugin import ScriptExecuter
 			mainmenu.append((_("Execute user script from /usr/script"),"6"))
 		except:
 			pass
-		mainmenu.append((_("Go to manual install ipk Menu"),"7","ipk.cfg"))
 		mainmenu.append((_("about %s") % domica_pluginversion , "8"))
 
 		self["menu"] = MenuList(mainmenu)
@@ -330,7 +351,6 @@ class Domica(Screen):
 		elif m_choice is "3":
 			self.session.open(DomicaSubMenu,"Cfg")
 		elif m_choice is "4":
-			emu_close=0
 			self.session.open(DomicaSubMenu,"Emu")
 			self.close()
 		elif m_choice is "5":
@@ -351,12 +371,3 @@ def Plugins(**kwargs):
 		except:
 			return [PluginDescriptor(where = [PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc = autostart),PluginDescriptor(name="Domica",
 					description="Menu Domica Plugin", where = PluginDescriptor.WHERE_PLUGINMENU, icon="domica.png", fnc=main)]
-
-files=os.listdir('/tmp')
-ipkfile=[]
-i=0
-for file in files:
-	if  file.endswith('.ipk'):
-		ipkfile.append((file,"%s" %i))
-		i+=1
-print ipkfile
