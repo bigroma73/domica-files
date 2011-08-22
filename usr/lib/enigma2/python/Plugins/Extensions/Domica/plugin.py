@@ -93,9 +93,16 @@ class DomicaSubMenu(Screen):
 			except:
 				pass
 #			emumenu.append((_("Softcam current info"),"3"))
-
+			self["key_red"].text = "Restart"
+			self["key_green"].text = "Start"
+			self["key_yellow"].text = "Stop"
 			self["list"] = MenuList(emumenu)
-			self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.EmuMenu, "cancel": self.close}, -1)
+			self["actions"] = ActionMap(["OkCancelActions","ColorActions"],
+			 					{"ok": self.EmuMenu, 
+								"cancel": self.close, 
+								"red": self.emuRestart, 
+								"green": self.emuStart,
+								"yellow": self.emuStop}, -1)
 		elif sub_m is "Cfg":
 			self.CfgMenu()
 		elif sub_m is "Ipk":
@@ -216,6 +223,18 @@ class DomicaSubMenu(Screen):
 			return 0
 		else:
 			return 1
+
+	def emuStart(self):
+		os.system("/etc/rcS.d/S50emu start")
+		self.session.open(MessageBox,(_("Emu started")), MessageBox.TYPE_INFO,timeout=4)
+
+	def emuStop(self):
+		os.system("/etc/rcS.d/S50emu stop")
+		self.session.open(MessageBox,(_("Emu stoped")), MessageBox.TYPE_INFO,timeout=2)
+
+	def emuRestart(self):
+		os.system("/etc/rcS.d/S50emu restart")
+		self.session.open(MessageBox,_("Emu restarting"), MessageBox.TYPE_INFO, timeout=4)
 
 	def EmuMenu(self):
 		m_choice = self["list"].getCurrent()
