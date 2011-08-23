@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>softcam-newcs</name>
+                    <packagename>softcam-newcs</packagename>
+                    <shortdescription>Newcs softcam</shortdescription>
+                    <description>Newcs softcam
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="softcam-newcs" />
+	</files>
+</default>

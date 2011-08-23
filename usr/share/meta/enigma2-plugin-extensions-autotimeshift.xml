@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="Recording" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>enigma2-plugin-extensions-autotimeshift</name>
+                    <packagename>enigma2-plugin-extensions-autotimeshift</packagename>
+                    <shortdescription>autotimeshift</shortdescription>
+                    <description>Plugin autotimeshift
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-extensions-autotimeshift" />
+	</files>
+</default>

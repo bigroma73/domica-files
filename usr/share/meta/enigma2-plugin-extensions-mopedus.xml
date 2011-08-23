@@ -1,0 +1,19 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="System" />
+	  </prerequisites>
+          <info>
+                    <author>Vlamo</author>
+                    <name>enigma2-plugin-extensions-mopedus</name>
+                    <packagename>enigma2-plugin-extensions-mopedus</packagename>
+                    <shortdescription>Mopedus</shortdescription>
+                    <description>Mopedus 3g/gprs plugin
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-extensions-mopedus" />
+	</files>
+
+</default>

@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>domica-conf-mpcs</name>
+                    <packagename>domica-conf-mpcs</packagename>
+                    <shortdescription>Mpcs default config</shortdescription>
+                    <description>Mpcs default config
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-conf-mpcs" />
+	</files>
+</default>

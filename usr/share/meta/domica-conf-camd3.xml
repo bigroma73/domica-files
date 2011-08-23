@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>domica-conf-camd3</name>
+                    <packagename>domica-conf-camd3</packagename>
+                    <shortdescription>Camd3 default config</shortdescription>
+                    <description>Camd3 default config
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-conf-camd3" />
+	</files>
+</default>

@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>enigma2-plugin-extensions-secondinfobar</name>
+                    <packagename>enigma2-plugin-extensions-secondinfobar</packagename>
+                    <shortdescription>enigma2-plugin-extensions-secondinfobar</shortdescription>
+                    <description>enigma2-plugin-extensions-secondinfobar
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-extensions-secondinfobar" />
+	</files>
+
+</default>

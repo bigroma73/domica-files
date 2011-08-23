@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>domica-spinnerselector</name>
+                    <packagename>domica-spinnerselector</packagename>
+                    <shortdescription>domica-spinnerselector</shortdescription>
+                    <description>spinner selector plugin
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-spinnerselector" />
+	</files>
+
+</default>

@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>domica-conf-mgcamd</name>
+                    <packagename>domica-conf-mgcamd</packagename>
+                    <shortdescription>Mgcamd default config</shortdescription>
+                    <description>Mgcamd default config
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-conf-mgcamd" />
+	</files>
+</default>

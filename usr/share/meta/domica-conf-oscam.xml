@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>domica-conf-oscam</name>
+                    <packagename>domica-conf-oscam</packagename>
+                    <shortdescription>Oscam default config</shortdescription>
+                    <description>Oscam default config
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-conf-oscam" />
+	</files>
+</default>

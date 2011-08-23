@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Wicard</author>
+                    <name>softcam-wicard</name>
+                    <packagename>softcam-wicard</packagename>
+                    <shortdescription>Wicard cam</shortdescription>
+                    <description>Wicard cam 1.08
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="softcam-wicard" />
+	</files>
+</default>

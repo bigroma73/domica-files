@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>BigTown</author>
+                    <name>enigma2-plugin-extensions-quickclock</name>
+                    <packagename>enigma2-plugin-extensions-quickclock</packagename>
+                    <shortdescription>quickclock</shortdescription>
+                    <description>Plugin quickclock
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-extensions-quickclock" />
+	</files>
+</default>

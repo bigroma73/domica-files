@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+		    <author>noName</author>
+		    <name>softcam-oscam-y15</name>
+		    <packagename>softcam-oscam-y15</packagename>
+		    <shortdescription>oscam softcam yuriks mod 15</shortdescription>
+		    <description>OScam yuriks mod 15 version
+		    </description>
+		    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+	</info>
+	<files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="softcam-oscam-y15" />
+	</files>
+</default>

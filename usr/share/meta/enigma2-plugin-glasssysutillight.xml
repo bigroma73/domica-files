@@ -1,0 +1,19 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="System" />
+	  </prerequisites>
+          <info>
+                    <author>shamann</author>
+                    <name>Glasssysutil light</name>
+                    <packagename>enigma2-plugin-glasssysutillight</packagename>
+                    <shortdescription>glasssysutillight</shortdescription>
+                    <description>Glasssysutil light with device mount-manager
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-glasssysutillight" />
+	</files>
+
+</default>

@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="System" />
+	  </prerequisites>
+          <info>
+                    <author>Meo</author>
+                    <name>Meoboot</name>
+                    <packagename>dreambox-meoboot</packagename>
+                    <shortdescription>dreambox-meoboot</shortdescription>
+                    <description>dreambox-meoboot
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="dreambox-meoboot" />
+	</files>
+</default>

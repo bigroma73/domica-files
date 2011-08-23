@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Sirius0103</author>
+                    <name>domica-picon-prov-sirius0103</name>
+                    <packagename>domica-picon-prov-sirius0103</packagename>
+                    <shortdescription>Provider picons by Sirius0103</shortdescription>
+                    <description>Provider picons only to usb-stick by Sirius0103
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-picon-prov-sirius0103" />
+	</files>
+
+</default>

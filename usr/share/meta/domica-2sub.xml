@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>domica-2sub</name>
+                    <packagename>domica-2sub</packagename>
+                    <shortdescription>Plugin 2sub</shortdescription>
+                    <description>Plugin 2sub
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="2sub" />
+	</files>
+</default>

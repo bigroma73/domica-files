@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>SergeyMK</author>
+                    <name>Picons package</name>
+                    <packagename>domica-picon-sergey-mk</packagename>
+                    <shortdescription>picons</shortdescription>
+                    <description>Picons by SergeyMK for usb-stick
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-picon-sergey-mk" />
+	</files>
+</default>

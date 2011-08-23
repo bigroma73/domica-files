@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Sirius0103</author>
+                    <name>Picons package</name>
+                    <packagename>domica-picon-sirius0103</packagename>
+                    <shortdescription>picons</shortdescription>
+                    <description>Picons by Sirius0103 for usb-stick
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-picon-sirius0103" />
+	</files>
+</default>

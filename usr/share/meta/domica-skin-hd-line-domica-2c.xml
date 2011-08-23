@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="Skin" />
+	  </prerequisites>
+          <info>
+                    <author>Metabox1</author>
+                    <name>domica-skin-hd-line-domica-2c</name>
+                    <packagename>domica-skin-hd-line-domica-2c</packagename>
+                    <shortdescription>domica-skin-hd-line-domica-2c</shortdescription>
+                    <description>Skin hd-line-domica-2c
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-skin-hd-line-domica-2c" />
+	</files>
+</default>

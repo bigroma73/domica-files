@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>domica-conf-wicard</name>
+                    <packagename>domica-conf-wicard</packagename>
+                    <shortdescription>Wicard default config</shortdescription>
+                    <description>Wicard default config
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-conf-wicard" />
+	</files>
+</default>

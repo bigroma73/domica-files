@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+		    <author>noName</author>
+		    <name>softcam-oscam-svn4856</name>
+		    <packagename>softcam-oscam-svn4856</packagename>
+		    <shortdescription>oscam softcam svn4856</shortdescription>
+		    <description>OScam emu svn4856
+		    </description>
+		    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+	</info>
+	<files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="softcam-oscam-svn4856" />
+	</files>
+</default>

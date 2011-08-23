@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>enigma2-plugin-extensions-barryallen</name>
+                    <packagename>enigma2-plugin-extensions-barryallen</packagename>
+                    <shortdescription>enigma2-plugin-extensions-barryallen</shortdescription>
+                    <description>enigma2-plugin-extensions-barryallen
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-extensions-barryallen" />
+	</files>
+
+</default>

@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+                    <author>2boom</author>
+                    <name>Picons package</name>
+                    <packagename>domica-picon-2boom</packagename>
+                    <shortdescription>picons</shortdescription>
+                    <description>Picons by 2boom for usb-stick
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-picon-2boom" />
+	</files>
+</default>

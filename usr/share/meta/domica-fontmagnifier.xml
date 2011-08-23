@@ -1,0 +1,19 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="System" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>domica-fontmagnifier</name>
+                    <packagename>domica-fontmagnifier</packagename>
+                    <shortdescription>domica-fontmagnifier</shortdescription>
+                    <description>Fontmagnifier -  font size changer
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-fontmagnifier" />
+	</files>
+
+</default>

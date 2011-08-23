@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="Skin" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>domica-skin-essen72</name>
+                    <packagename>domica-skin-essen72</packagename>
+                    <shortdescription>domica-skin-essen72</shortdescription>
+                    <description>Skin essen72
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-skin-essen72" />
+	</files>
+</default>

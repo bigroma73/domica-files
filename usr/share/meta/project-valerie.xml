@@ -1,0 +1,19 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="Multimedia" />
+                    <tag type="Recording" />
+	  </prerequisites>
+          <info>
+                    <author>Pashaa</author>
+                    <name>project-valerie</name>
+                    <packagename>project-valerie</packagename>
+                    <shortdescription>project-valerie</shortdescription>
+                    <description>Project-valerie
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="project-valerie" />
+	</files>
+</default>

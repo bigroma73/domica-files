@@ -1,0 +1,18 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+                    <tag type="Skin" />
+	  </prerequisites>
+          <info>
+                    <author>noName</author>
+                    <name>domica-skin-lt6</name>
+                    <packagename>domica-skin-lt6</packagename>
+                    <shortdescription>domica-skin-lt6</shortdescription>
+                    <description>Skin lt6
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="domica-skin-lt6" />
+	</files>
+</default>
