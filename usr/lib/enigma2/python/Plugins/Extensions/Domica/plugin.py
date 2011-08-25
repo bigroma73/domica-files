@@ -7,8 +7,6 @@ from Components.MenuList import MenuList
 from Screens.Standby import TryQuitMainloop
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
-from DiskInfo2 import DiskInfo2
-from EmuInfo2 import EmuInfo2
 from Screens.PluginBrowser import PluginBrowser
 from Screens.Console import Console
 from Components.Sources.StaticText import StaticText
@@ -98,7 +96,7 @@ class DomicaSubMenu(Screen):
 			self["key_yellow"].text = "Stop"
 			self["list"] = MenuList(emumenu)
 			self["actions"] = ActionMap(["OkCancelActions","ColorActions"],
-			 					{"ok": self.EmuMenu, 
+								{"ok": self.EmuMenu, 
 								"cancel": self.close, 
 								"red": self.emuRestart, 
 								"green": self.emuStart,
@@ -253,7 +251,7 @@ class DomicaSubMenu(Screen):
 		elif m_choice[1] is "3":
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/mgcamd-1.35a.sh"):
-				name = ("ipkg update && ipkg install softcam-mgcamd_1.35a-r0_mipsel")
+				name = ("ipkg update && ipkg install softcam-mgcamd-1.35a")
 				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
@@ -263,7 +261,7 @@ class DomicaSubMenu(Screen):
 		elif m_choice[1] is "4":
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/cccam-2.2.1.sh"):
-				name = ("ipkg update && ipkg install softcam-cccam_2.2.1-r0_mipsel")
+				name = ("ipkg update && ipkg install softcam-cccam-2.2.1")
 				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
@@ -312,6 +310,8 @@ class DomicaSubMenu(Screen):
 		elif m_choice is "6":
 			tmpstr="dd if=/dev/zero of=" + swapfile + " bs=1024 count=8192"
 			os.system(tmpstr)
+			tmpstr = "mkswap " + swapfile
+			os.system(tmpstr)
 			self.session.openWithCallback(self.close,MessageBox,(_("Swap file created")), MessageBox.TYPE_INFO,timeout=3)
 		elif m_choice is "7":
 			tmpstr="rm " + swapfile
@@ -347,7 +347,6 @@ class Domica(Screen):
 		mainmenu.append((_("Ipk Menu"),"7"))
 		mainmenu.append((_("Configure"),"3"))
 		mainmenu.append((_("Plugins"),"2"))
-		mainmenu.append((_("Disks usage information"),"5"))
 		try:
 			from Plugins.Extensions.ScriptExecuter.plugin import ScriptExecuter
 			mainmenu.append((_("Execute user script from /usr/script"),"6"))
@@ -372,8 +371,6 @@ class Domica(Screen):
 		elif m_choice is "4":
 			self.session.open(DomicaSubMenu,"Emu")
 			self.close()
-		elif m_choice is "5":
-			self.session.open(DiskInfo2)
 		elif  m_choice is "6":
 			self.session.open(ScriptExecuter)
 		elif m_choice is "7":
