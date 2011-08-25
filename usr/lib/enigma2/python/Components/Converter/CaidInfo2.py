@@ -1,24 +1,9 @@
 #
 #  CaidInfo2 - Converter
 #
-#  ver 0.4
+#  ver 0.4.1
 #
 #  Coded by bigroma  from Domica team
-#
-#  based on CaidDisplay by Dr.Best & weazle
-#
-#  This plugin is licensed under the Creative Commons 
-#  Attribution-NonCommercial-ShareAlike 3.0 Unported 
-#  License. To view a copy of this license, visit
-#  http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative
-#  Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
-#
-#  Alternatively, this plugin may be distributed and executed on hardware which
-#  is licensed by Dream Multimedia GmbH.
-
-#  This plugin is NOT free software. It is open source, you are allowed to
-#  modify it (if you keep the license), but it may not be commercially 
-#  distributed other than under the conditions noted above.
 
 from Components.Converter.Converter import Converter
 from enigma import iServiceInformation, iPlayableService
@@ -442,9 +427,9 @@ class CaidInfo2(Poll, Converter, object):
 								item[0]="port"
 								item[1] = ""
 							elif item[0][:2] == 'cw'or item[0] =='ChID' or item[0] == "Service" \
-							     or item[0] == "system" or item[0] == "system" or item[0] == "hops" or item[0] == "provider":
+							     or item[0] == "system" or item[0] == "hops" or item[0] == "provider":
 								pass
-							#mgcamd oscam block
+							#mgcamd new_oscam block
 							elif item[0] == "source":
 								if item[1].strip()[:3] == "net":
 									it_tmp = item[1].strip().split(" ")
@@ -456,6 +441,17 @@ class CaidInfo2(Poll, Converter, object):
 								y = item[1].find(",")
 								if y != -1:
 									item[1] = item[1][:y]
+							#old oscam block
+							elif item[0] == "reader":
+								if item[1].strip() == "emu":
+									item[0] = "source"
+							elif item[0] == "from":
+								if item[1].strip() == "local":
+									item[1] = "sci"
+									item[0] = "source"
+								else:
+									info["source"] = "net"
+									item[0] = "server"
 							#cccam block
 							elif item[0] == "provid":
 								item[0] = "prov"
