@@ -1,7 +1,6 @@
 from __init__ import _
 from Screens.About import About
 from Plugins.Plugin import PluginDescriptor
-from Screens.EmuStarter import *
 from Components.ActionMap import ActionMap
 from Components.MenuList import MenuList
 from Screens.Standby import TryQuitMainloop
@@ -10,7 +9,6 @@ from Screens.MessageBox import MessageBox
 from Screens.PluginBrowser import PluginBrowser
 from Screens.Console import Console
 from Components.Sources.StaticText import StaticText
-import fnmatch
 import os
 try:
 	from Plugins.Extensions.ScriptExecuter.plugin import ScriptExecuter
@@ -91,9 +89,9 @@ class DomicaSubMenu(Screen):
 			except:
 				pass
 #			emumenu.append((_("Softcam current info"),"3"))
-			self["key_red"].text = "Restart"
-			self["key_green"].text = "Start"
-			self["key_yellow"].text = "Stop"
+			self["key_red"].text = _("Restart")
+			self["key_green"].text = _("Start")
+			self["key_yellow"].text = _("Stop")
 			self["list"] = MenuList(emumenu)
 			self["actions"] = ActionMap(["OkCancelActions","ColorActions"],
 								{"ok": self.EmuMenu, 
@@ -112,15 +110,15 @@ class DomicaSubMenu(Screen):
 					ipkmenu.append((file[:-4],"%s" %i))
 					i+=1
 			if ipkmenu == []:
-				ipkmenu.append(("No packages","0"))
-				self["key_red"].text =  "Online update"
+				ipkmenu.append((_("No packages"),"0"))
+				self["key_red"].text =  _("Online update")
 				self["list"] = MenuList(ipkmenu)
 				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], {"ok": self.close, "cancel": self.close, "red": self.updIpk}, -1)
 			else:
-				self["key_red"].text =  "Online update"
-				self["key_green"].text =  "Install all"
-				self["key_yellow"].text =  "Remove"
-				self["key_blue"].text =  "Remove All"
+				self["key_red"].text = _("Online update")
+				self["key_green"].text = _("Install all")
+				self["key_yellow"].text = _("Remove")
+				self["key_blue"].text = _("Remove All")
 				self["list"] = MenuList(ipkmenu)
 				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], 
 									{"ok": self.instOne, 
@@ -135,16 +133,16 @@ class DomicaSubMenu(Screen):
 
 	def updIpk(self):
 		name = ("ipkg update && ipkg upgrade")
-		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+		self.session.open(Console,title = _("Console"),cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 
 	def instOne(self):
 		name = ("ipkg install /tmp/%s.ipk" % self["list"].getCurrent()[0])
-		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+		self.session.open(Console,title = _("Console"),cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 	def instAll(self):
 		name = ("ipkg install *.ipk")
-		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+		self.session.open(Console,title = _("Console"),cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 	def rmOne(self):
 		os.system("rm /tmp/%s.ipk" % self["list"].getCurrent()[0])
@@ -252,7 +250,7 @@ class DomicaSubMenu(Screen):
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/mgcamd-1.35a.sh"):
 				name = ("ipkg update && ipkg install softcam-mgcamd-1.35a")
-				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
+				self.session.open(Console,title = _("Console"),cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
 			f.close()
@@ -262,7 +260,7 @@ class DomicaSubMenu(Screen):
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/cccam-2.2.1.sh"):
 				name = ("ipkg update && ipkg install softcam-cccam-2.2.1")
-				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
+				self.session.open(Console,title = _("Console"),cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
 			f.close()
@@ -298,7 +296,7 @@ class DomicaSubMenu(Screen):
 			restartbox.setTitle(_("Restart GUI now?"))
 		elif m_choice is "3":
 			tmpstr=backup_programm + " /media/hdd"
-			self.session.open(Console,title = "Backup to HDD",cmdlist = [tmpstr], finishedCallback = self.close,closeOnSuccess = True)
+			self.session.open(Console,title = _("Backup to HDD"),cmdlist = [tmpstr], finishedCallback = self.close,closeOnSuccess = True)
 		elif m_choice is "4":
 			tmpstr="swapon " + swapfile
 			os.system(tmpstr)
