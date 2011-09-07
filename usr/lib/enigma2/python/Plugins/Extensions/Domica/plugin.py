@@ -1,18 +1,14 @@
 from __init__ import _
 from Screens.About import About
 from Plugins.Plugin import PluginDescriptor
-from Screens.EmuStarter import *
 from Components.ActionMap import ActionMap
 from Components.MenuList import MenuList
 from Screens.Standby import TryQuitMainloop
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
-from DiskInfo2 import DiskInfo2
-from EmuInfo2 import EmuInfo2
 from Screens.PluginBrowser import PluginBrowser
 from Screens.Console import Console
 from Components.Sources.StaticText import StaticText
-import fnmatch
 import os
 try:
 	from Plugins.Extensions.ScriptExecuter.plugin import ScriptExecuter
@@ -20,7 +16,7 @@ except:
 	pass
 
 swapfile = "/media/hdd/swapfile"
-domica_pluginversion = "Domica image 8.0"
+domica_pluginversion = "Domica image 9.0"
 ntpserver = "0.ua.pool.ntp.org"
 time_programm = "/usr/bin/ntpdate"
 backup_programm = "/usr/bin/build-nfi-image.sh"
@@ -93,12 +89,12 @@ class DomicaSubMenu(Screen):
 			except:
 				pass
 #			emumenu.append((_("Softcam current info"),"3"))
-			self["key_red"].text = "Restart"
-			self["key_green"].text = "Start"
-			self["key_yellow"].text = "Stop"
+			self["key_red"].text = _("Restart")
+			self["key_green"].text = _("Start")
+			self["key_yellow"].text = _("Stop")
 			self["list"] = MenuList(emumenu)
 			self["actions"] = ActionMap(["OkCancelActions","ColorActions"],
-			 					{"ok": self.EmuMenu, 
+								{"ok": self.EmuMenu, 
 								"cancel": self.close, 
 								"red": self.emuRestart, 
 								"green": self.emuStart,
@@ -114,15 +110,15 @@ class DomicaSubMenu(Screen):
 					ipkmenu.append((file[:-4],"%s" %i))
 					i+=1
 			if ipkmenu == []:
-				ipkmenu.append(("No packages","0"))
-				self["key_red"].text =  "Online update"
+				ipkmenu.append((_("No packages"),"0"))
+				self["key_red"].text =  _("Online update")
 				self["list"] = MenuList(ipkmenu)
 				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], {"ok": self.close, "cancel": self.close, "red": self.updIpk}, -1)
 			else:
-				self["key_red"].text =  "Online update"
-				self["key_green"].text =  "Install all"
-				self["key_yellow"].text =  "Remove"
-				self["key_blue"].text =  "Remove All"
+				self["key_red"].text = _("Online update")
+				self["key_green"].text = _("Install all")
+				self["key_yellow"].text = _("Remove")
+				self["key_blue"].text = _("Remove All")
 				self["list"] = MenuList(ipkmenu)
 				self["actions"] = ActionMap(["OkCancelActions","ColorActions"], 
 									{"ok": self.instOne, 
@@ -137,16 +133,16 @@ class DomicaSubMenu(Screen):
 
 	def updIpk(self):
 		name = ("ipkg update && ipkg upgrade")
-		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+		self.session.open(Console,title = _("Console"),cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 
 	def instOne(self):
 		name = ("ipkg install /tmp/%s.ipk" % self["list"].getCurrent()[0])
-		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+		self.session.open(Console,title = _("Console"),cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 	def instAll(self):
 		name = ("ipkg install *.ipk")
-		self.session.open(Console,title = "Console",cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
+		self.session.open(Console,title = _("Console"),cmdlist = [name], finishedCallback = self.close,closeOnSuccess = True)
 
 	def rmOne(self):
 		os.system("rm /tmp/%s.ipk" % self["list"].getCurrent()[0])
@@ -253,8 +249,8 @@ class DomicaSubMenu(Screen):
 		elif m_choice[1] is "3":
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/mgcamd-1.35a.sh"):
-				name = ("ipkg update && ipkg install softcam-mgcamd_1.35a-r0_mipsel")
-				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
+				name = ("ipkg update && ipkg install softcam-mgcamd-1.35a")
+				self.session.open(Console,title = _("Console"),cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
 			f.close()
@@ -263,8 +259,8 @@ class DomicaSubMenu(Screen):
 		elif m_choice[1] is "4":
 			os.system("/etc/rcS.d/S50emu stop")
 			if not os.path.exists("/usr/emu/cccam-2.2.1.sh"):
-				name = ("ipkg update && ipkg install softcam-cccam_2.2.1-r0_mipsel")
-				self.session.open(Console,title = "Console",cmdlist = [name],closeOnSuccess = True)
+				name = ("ipkg update && ipkg install softcam-cccam-2.2.1")
+				self.session.open(Console,title = _("Console"),cmdlist = [name],closeOnSuccess = True)
 			f = open("/etc/active_emu.list","w")
 			f.write(m_choice[0])
 			f.close()
@@ -300,7 +296,7 @@ class DomicaSubMenu(Screen):
 			restartbox.setTitle(_("Restart GUI now?"))
 		elif m_choice is "3":
 			tmpstr=backup_programm + " /media/hdd"
-			self.session.open(Console,title = "Backup to HDD",cmdlist = [tmpstr], finishedCallback = self.close,closeOnSuccess = True)
+			self.session.open(Console,title = _("Backup to HDD"),cmdlist = [tmpstr], finishedCallback = self.close,closeOnSuccess = True)
 		elif m_choice is "4":
 			tmpstr="swapon " + swapfile
 			os.system(tmpstr)
@@ -311,6 +307,8 @@ class DomicaSubMenu(Screen):
 			self.session.openWithCallback(self.close,MessageBox,(_("Swap file stoped")), MessageBox.TYPE_INFO,timeout=3)
 		elif m_choice is "6":
 			tmpstr="dd if=/dev/zero of=" + swapfile + " bs=1024 count=8192"
+			os.system(tmpstr)
+			tmpstr = "mkswap " + swapfile
 			os.system(tmpstr)
 			self.session.openWithCallback(self.close,MessageBox,(_("Swap file created")), MessageBox.TYPE_INFO,timeout=3)
 		elif m_choice is "7":
@@ -347,7 +345,6 @@ class Domica(Screen):
 		mainmenu.append((_("Ipk Menu"),"7"))
 		mainmenu.append((_("Configure"),"3"))
 		mainmenu.append((_("Plugins"),"2"))
-		mainmenu.append((_("Disks usage information"),"5"))
 		try:
 			from Plugins.Extensions.ScriptExecuter.plugin import ScriptExecuter
 			mainmenu.append((_("Execute user script from /usr/script"),"6"))
@@ -372,8 +369,6 @@ class Domica(Screen):
 		elif m_choice is "4":
 			self.session.open(DomicaSubMenu,"Emu")
 			self.close()
-		elif m_choice is "5":
-			self.session.open(DiskInfo2)
 		elif  m_choice is "6":
 			self.session.open(ScriptExecuter)
 		elif m_choice is "7":
