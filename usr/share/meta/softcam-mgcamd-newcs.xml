@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="Domica" />
+	  </prerequisites>
+          <info>
+		    <author>noName</author>
+		    <name>softcam-newcs 1.67 + mgcamd 1.35a</name>
+		    <packagename>softcam newcs 1.67 + mgcamd 1.35a</packagename>
+		    <shortdescription>newcs 1.67 + mgcamd 1.35a softcam</shortdescription>
+		    <description>Emu newcs 1.67 + mgcamd 1.35a
+		    </description>
+		    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+	</info>
+	<files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="softcam-newcs-mgcamd" />
+	</files>
+</default>

@@ -1,0 +1,82 @@
+<index>
+	<package details="softcam-newcs.xml" name="softcam-newcs" packagename="softcam-newcs" shortdescription="Newcs softcam">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-oscam-svn4856.xml" name="softcam-oscam-svn4856" packagename="softcam-oscam-svn4856" shortdescription="Oscam emu svn4856 ">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-wicard.xml" name="softcam-wicard" packagename="softcam-wicard" shortdescription="Wicard cam">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-oscam-y15.xml" name="softcam-oscam-y15" packagename="softcam-oscam-y15" shortdescription="Oscam yuriks mod 15">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-oscam-y18.xml" name="softcam-oscam-y18" packagename="softcam-oscam-y18" shortdescription="Oscam yuriks mod 18">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-cccam.xml" name="softcam-cccam" packagename="softcam-cccam" shortdescription="Cccam emu 2.2.1 ">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-cccam-oscam.xml" name="softcam-cccam-oscam" packagename="softcam-cccam-oscam" shortdescription="Cccam-2.2.1 + Oscam-svn4856 emu">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-cccam-2.1.3.xml" name="softcam-cccam-2.1.3" packagename="softcam-cccam-2.1.3" shortdescription="Cccam emu 2.1.3">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="softcam-mgcamd-newcs.xml" name="softcam-mgcamd-newcs" packagename="softcam-mgcamd-newcs" shortdescription="Emu newcs-1.67 + mgcamd-1.35a">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-camd3.xml" name="Domica-conf-camd3" packagename="domica-conf-camd3" shortdescription="Camd3 default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-cccam.xml" name="Domica-conf-cccam" packagename="domica-conf-cccam" shortdescription="Cccam default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-mgcamd.xml" name="Domica-conf-mgcamd" packagename="domica-conf-mgcamd" shortdescription="Mgcamd default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-mpcs.xml" name="Domica-conf-mpcs" packagename="domica-conf-mpcs" shortdescription="Mpcs default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-newcs.xml" name="Domica-conf-newcs" packagename="domica-conf-newcs" shortdescription="Newcs default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-oscam.xml" name="Domica-conf-oscam" packagename="domica-conf-oscam" shortdescription="Oscam default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+	<package details="domica-conf-wicard.xml" name="Domica-conf-wicard" packagename="domica-conf-wicard" shortdescription="Wicard default config">
+		<prerequisites>
+			<tag type="Domica" />
+		</prerequisites>
+	</package>
+</index> 
