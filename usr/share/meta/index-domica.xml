@@ -80,54 +80,13 @@
 			<tag type="Domica" />
 		</prerequisites>
 	</package>
-	<package details="domica-conf-camd3.xml" name="Domica-conf-camd3" packagename="domica-conf-camd3" shortdescription="Camd3 default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-conf-cccam.xml" name="Domica-conf-cccam" packagename="domica-conf-cccam" shortdescription="Cccam default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-conf-mgcamd.xml" name="Domica-conf-mgcamd" packagename="domica-conf-mgcamd" shortdescription="Mgcamd default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-conf-mpcs.xml" name="Domica-conf-mpcs" packagename="domica-conf-mpcs" shortdescription="Mpcs default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-conf-newcs.xml" name="Domica-conf-newcs" packagename="domica-conf-newcs" shortdescription="Newcs default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-conf-oscam.xml" name="Domica-conf-oscam" packagename="domica-conf-oscam" shortdescription="Oscam default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-conf-wicard.xml" name="Domica-conf-wicard" packagename="domica-conf-wicard" shortdescription="Wicard default config">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="domica-skin-blue-shadow.xml" name="Blue-shadow skin" packagename="domica-skin-blue-shadow" shortdescription="Skin blue shadow package">
-		<prerequisites>
-			<tag type="Domica" />
-			<tag type="Skin" />
-		</prerequisites>
-	</package>
 	<package details="domica-skin-essen72.xml" name="Essential72 skin" packagename="domica-skin-essen72" shortdescription="Skin essensial-72 package">
 		<prerequisites>
 			<tag type="Domica" />
 			<tag type="Skin" />
 		</prerequisites>
 	</package>
-	<package details="domica-skin-dmconcinnity.xml" name="DMConcinnity HD skin" packagename="domica-skin-dmconcinnity" shortdescription="DMConcinnity skin">
+	<package details="domica-skin-dmconcinnity.xml" name="DMConcinnity HD skin" packagename="domica-skin-dmconcinnity-hd" shortdescription="DMConcinnity skin">
 		<prerequisites>
 			<tag type="Domica" />
 			<tag type="Skin" />
@@ -211,26 +170,6 @@
 			<tag type="Multimedia" />
 		</prerequisites>
 	</package>
-	<package details="softcam-wicard.xml" name="softcam-wicard" packagename="softcam-wicard" shortdescription="Wicard cam">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="softcam-oscam-y15.xml" name="softcam-oscam-y15" packagename="softcam-oscam-y15" shortdescription="Oscam yuriks mod 15">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="softcam-cccam.xml" name="softcam-cccam" packagename="softcam-cccam" shortdescription="Cccam emu 2.2.1 ">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="softcam-mpcs-mgcamd.xml" name="softcam-mpcs-mgcamd" packagename="softcam-mpcs-mgcamd" shortdescription="Mpcs 16f + Mgcamd 1.35a softcams">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
 	<package details="enigma2-plugin-systemplugins-crossepg-oe1.6.xml" name="Plugin crossepg" packagename="enigma2-plugin-systemplugins-crossepg-oe1.6" shortdescription="enigma2-plugin-systemplugins-crossepg">
 		<prerequisites>
 			<tag type="Domica" />
@@ -273,16 +212,6 @@
 		<prerequisites>
 			<tag type="Domica" />
 			<tag type="System" />
-		</prerequisites>
-	</package>
-	<package details="softcam-newcs.xml" name="softcam-newcs" packagename="softcam-newcs" shortdescription="Newcs softcam">
-		<prerequisites>
-			<tag type="Domica" />
-		</prerequisites>
-	</package>
-	<package details="softcam-oscam-svn4856.xml" name="softcam-oscam-svn4856" packagename="softcam-oscam-svn4856" shortdescription="Oscam emu svn4856 ">
-		<prerequisites>
-			<tag type="Domica" />
 		</prerequisites>
 	</package>
 	<package details="enigma2-plugin-extensions-webradiofs.xml" name="Plugin webradiofs" packagename="enigma2-plugin-extensions-webradiofs" shortdescription="Plugin webradio">

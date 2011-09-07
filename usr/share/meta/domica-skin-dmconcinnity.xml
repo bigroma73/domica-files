@@ -5,14 +5,14 @@
 	  </prerequisites>
           <info>
                     <author>noName</author>
-                    <name>domica-skin-dmconcinnity</name>
-                    <packagename>domica-skin-dmconcinnity</packagename>
+                    <name>domica-skin-dmconcinnity-hd</name>
+                    <packagename>domica-skin-dmconcinnity-hd</packagename>
                     <shortdescription>skin DMConcinnity</shortdescription>
                     <description>Skin DMConcinnity-HD
                     </description>
                     <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
           </info>
 	  <files type="package"> <!-- without version, without .ipk -->
-		<file type="package" name="domica-skin-dmconcinnity" />
+		<file type="package" name="domica-skin-dmconcinnity-hd" />
 	</files>
 </default>
