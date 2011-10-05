@@ -1,15 +1,9 @@
 #!/bin/sh
-##############Änderbare Variablen###############
-VSNDMAN=$3 #manuelle SecondStageLoader Version, wird hier ein Wert eingegeben, dann wird dieser Wert immer benutzt! Unabhängig der Ermittlungen über ipkg-list oder IHAD
-################################################
-
+# based on IHAD script.
+VSNDMAN=$3 
 DIRECTORY=$1
 MTDBOOT=2
 MTDROOT=3
-
-#SWAPDIR=$DIRECTORY/backup/FlashBackup
-#SSLDIR=$DIRECTORY/backup/FlashBackup/SSL
-
 SWAPSIZE=$2
 if [ "$SWAPSIZE" -lt 1 ]; then
 SWAPSIZE=128
@@ -33,6 +27,9 @@ elif grep -qs 'dm8000' /proc/stb/info/model ; then
 elif grep -qs 'dm800' /proc/stb/info/model ; then
 	BOXTYPE=dm800
 	OPTIONS="--eraseblock=0x4000 -n -l"
+elif grep -qs 'dm800se' /proc/stb/info/model ; then
+	BOXTYPE=dm800se
+	OPTIONS="--eraseblock=0x4000 -n -l"
 elif grep -qs 'dm500hd' /proc/stb/info/model ; then
 	BOXTYPE=dm500hd
 	OPTIONS="--eraseblock=0x4000 -n -l"
@@ -40,7 +37,7 @@ else
 	echo "No supported Dreambox found!!!"
 	exit 0
 fi
-# Edit by Erim Start
+
 echo " "
 echo "*********************"
 echo "** $BOXTYPE found **"
@@ -48,7 +45,7 @@ echo "*********************"
 echo " "
 
 echo "---------------------------------------------------------------"
-############# Überprüfe ob Datenträger vorhanden ist, wenn nicht suche alternativen ###############
+
 listdummy=ls "$DIRECTORY"/blabla 2> /dev/null
 FREESIZE=`df -m "$DIRECTORY" | tr -s " " | tail -n1 | cut -d' ' -f4 | sed "s/Available/0/`
 if ! [ "$FREESIZE" -gt "128" ]; then
@@ -69,7 +66,7 @@ echo "---------------------------------------------------------------"
 	fi
 fi
 
-############# Überprüfe freien Datenträgerplatz ###############
+
 echo "check if 128MB are free in $DIRECTORY"
 if [ "$FREESIZE" -lt "128" ]; then
 		echo "Free memory space="$FREESIZE"MB,aborting FlashBackup"
@@ -83,22 +80,22 @@ if [ "$FREESIZE" -lt "128" ]; then
 		echo "---------------------------------------------------------------"
 fi
 
-###############Überprüfe auf manuell gesetzten SSL############
+
 if ! test -z "$VSNDMAN" -o -n "`echo \"$VSNDMAN\" | tr -d '[0-9]'`" ; then
   echo "Secondstageloader-version manually set to $VSNDMAN"
   VSND=$VSNDMAN
 else
-  ###SSL-Version Ermittlung 8000, 800, 7025,7020, 600 und 500Plus ######
+
   	echo "Trying to find secondstageloader-version in Ipkg-List"
   VSND=`ipkg list | grep dreambox-secondstage | cut -d' ' -f3 |cut -d'-' -f1 | tail -n 1`
-	########## Check des SSL aus ipkg-list################
+
   if test -z "$VSND" -o -n "`echo \"$VSND\" | tr -d '[0-9]'`" ; then
     echo "No secondstageloader-version in Ipkg-List found :("
-    ############Versuche Aktuellsten SSL von IHAD zu finden###############
+
     echo "Trying to get the latest secondstageloader-version from IHAD"   
     wget -q http://www.i-have-a-dreambox.com/diverses/secondstageloader/$BOXTYPE -O /tmp/SSLs > /dev/null
     IHADSSL=`cat /tmp/SSLs | grep secondstage | cut -d'-' -f3 |cut -d'.' -f1 | tail -n 1`
-    ############ Suchtiefe dreamboxupdate = 5 #####################
+    
     SearchSSL=`expr $IHADSSL "+" 5`
     echo "Trying to find newer secondstageloader-version than "$IHADSSL" at Dreamboxupdate..."
     wget -q http://www.dreamboxupdate.com/download/7020/secondstage-$BOXTYPE-$IHADSSL.bin -O $SSLDIR/secondstage-$BOXTYPE-$IHADSSL.bin 2> /dev/null
@@ -113,7 +110,7 @@ else
   else
     echo "Secondstageloader-version found in Ipkg-List"
 fi
-#############Überprüfe ob VSND ein numerischer Wert ist##################
+
 if test -z "$VSND" -o -n "`echo \"$VSND\" | tr -d '[0-9]'`" ; then
   echo "**************************************************************************************"
   echo "* Secondstageloader couldn't be found. Either your box is offline, or you don't have *"
@@ -127,12 +124,9 @@ else
 	echo "-------------------------------------------------------------------"
         echo "Secondstageloader-version "$VSND" will be used for FlashBackup     "
 	echo "-------------------------------------------------------------------"
-#echo "******************"
-#echo "** $BOXTYPE found **"
-#echo "******************"
 
-############Versuche Flash-Image zu ermitteln###########
-if [ $BOXTYPE = "dm8000" -o $BOXTYPE = "dm800" -o $BOXTYPE = "dm7025" ] ;then
+
+if [ $BOXTYPE = "dm8000" -o $BOXTYPE = "dm800" -o $BOXTYPE = "dm7025" -o $BOXTYPE = "dm800se" -o $BOXTYPE = "dm500hd" ] ;then
 	echo "Trying to identify flash-image"
 	if grep -qs "url=http:\/\/www.i-have-a-dreambox.com" /etc/image-version ; then
 		IMAGEINFO=Gemini-`cat /etc/image-version | grep version | cut -d'2' -f1 | sed 's/.*\(.\{3\}\)$/\1/' | cut -b 1`.`cat /etc/image-version | grep version | cut -d'2' -f1 | sed 's/.*\(.\{2\}\)$/\1/'` # sed Befehl schnappt sich die letzten 3 Zeichen
@@ -173,7 +167,6 @@ if [ ! -f $BUILDIMAGE ] ; then
 	exit 0
 fi
 
-############Überprüfe ob SSL auf HDD liegt, wenn nicht download SSL ##########
 mkdir -p $SSLDIR
 if [ -f $SSLDIR/$SND ] ; then
   cp -r $SSLDIR/$SND /tmp/secondstage.bin 2> /dev/null
@@ -181,7 +174,7 @@ if [ -f $SSLDIR/$SND ] ; then
 else
   echo "...Download" $SND
   wget -q http://sources.dreamboxupdate.com/download/7020/$SND -O $SSLDIR/$SND > /dev/null
-###########Überprüfe download####################
+
 	if [ -f $SSLDIR/$SND ] ; then
 		cp -r $SSLDIR/$SND /tmp/secondstage.bin 2> /dev/null
 	else
@@ -195,13 +188,13 @@ else
 	fi
 fi
 
-############### Prüfe ob MD5 Datei auf HDD liegt und #################
+
 	if ! [ -f $SSLDIR/$SND.md5 ] ; then
 		echo "...Download" $SND.md5
 		wget -q http://www.i-have-a-dreambox.com/diverses/secondstageloader/$BOXTYPE/$SND.md5 -O $SSLDIR/$SND.md5 > /dev/null
 	fi
 echo "---------------------------------------------------------------"
-####################MD5 check des SSL #################
+
 	if [ -f $SSLDIR/$SND.md5 ] ; then
 		md5sum $SSLDIR/$SND > /tmp/SSL.md5
 		#md5sum -c MD5SUM
@@ -238,8 +231,8 @@ let MEMFREE=`free | grep Total | tr -s " " | cut -d " " -f 4 `/1024
   if [ "$MEMFREE" -lt $SWAPSIZE ]; then
   echo "Memory is smaller than "$SWAPSIZE"MB, FlashBackup has to create a swapfile"
 echo "---------------------------------------------------------------"
-  # Edit by Erim Stop
-  #start mod by JackDaniel
+
+
   echo "Creating swapfile on $SWAPDIR with "$SWAPSIZE"MB"
   dd if=/dev/zero of=$SWAPDIR/swapfile_backup bs=1024k count=$SWAPSIZE
   mkswap $SWAPDIR/swapfile_backup
@@ -247,16 +240,16 @@ echo "---------------------------------------------------------------"
 echo "---------------------------------------------------------------"
   echo "Swapfile activated"
 echo "---------------------------------------------------------------"
-  # end mod by JackDaniel
+
 else
   echo "memory="$MEMFREE"MB=OK"
 fi
 echo "***********************************************"
-#start mod by JackDaniel
+
 starttime="$(date +%s)"
 echo "* FlashBackup started at: `date +%H:%M:%S`          *"
 echo "***********************************************"
-# end mod by JackDaniel
+
 rm -rf $DIRECTORY/bi
 mkdir -p $DIRECTORY/bi
 mkdir -p /tmp/bi/root
@@ -271,7 +264,7 @@ if [ -s /tmp/secondstage.bin ] ; then
 	echo "create root.jffs2..."
 	$MKFS --root=/tmp/bi/root --faketime --output=$DIRECTORY/bi/root.jffs2 $OPTIONS
 	echo "create Secondstageloader..."
-	if [ $BOXTYPE = "dm800" -o $BOXTYPE = "dm8000" -o $BOXTYPE = "dm500hd" ] ; then
+	if [ $BOXTYPE = "dm800" -o $BOXTYPE = "dm8000" -o $BOXTYPE = "dm500hd" -o $BOXTYPE = "dm800se" ] ; then
 		cp /tmp/secondstage.bin $DIRECTORY/bi/main.bin.gz
 	else
 		gzip -c /tmp/secondstage.bin > $DIRECTORY/bi/main.bin.gz
@@ -292,11 +285,13 @@ if [ -s /tmp/secondstage.bin ] ; then
 		$BUILDIMAGE $DIRECTORY/bi/main.bin.gz $DIRECTORY/bi/boot.jffs2 $DIRECTORY/bi/root.jffs2 $BOXTYPE > $BACKUPIMAGE
 	elif [ $BOXTYPE = "dm500plus" ] ; then
 		$BUILDIMAGE $DIRECTORY/bi/main.bin.gz $DIRECTORY/bi/boot.jffs2 $DIRECTORY/bi/root.jffs2 $BOXTYPE > $BACKUPIMAGE
+	elif [ $BOXTYPE = "dm800se" ] ; then
+		$BUILDIMAGE $DIRECTORY/bi/main.bin.gz $DIRECTORY/bi/boot.jffs2 $DIRECTORY/bi/root.jffs2 $BOXTYPE 64 > $BACKUPIMAGE
 	elif [ $BOXTYPE = "dm500hd" ] ; then
 		$BUILDIMAGE $DIRECTORY/bi/main.bin.gz $DIRECTORY/bi/boot.jffs2 $DIRECTORY/bi/root.jffs2 $BOXTYPE 64 > $BACKUPIMAGE
 	fi
 
-########Abfrage Image erstellt ######## 
+ 
 	if [ -f $BACKUPIMAGE ] ; then
 		echo "----------------------------------------------------------------------"
 		echo "FlashBackup created in:" $BACKUPIMAGE
@@ -311,8 +306,8 @@ else
   exit 0
 fi
 
-if [ -s "$SWAPDIR"/swapfile_backup ] ; then #Überprüfen ob Swapfile von Script erstellt wurde, wenn ja löschen
-  # start mod by JackDaniel
+if [ -s "$SWAPDIR"/swapfile_backup ] ; then
+
   swapoff $SWAPDIR/swapfile_backup
   rm -rf $SWAPDIR/swapfile_backup
   echo "deactivating an deleting swapfile"
@@ -324,7 +319,7 @@ echo "***********************************************"
 echo "* FlashBackup finished at: `date +%H:%M:%S`            *"
 echo "* Duration of FlashBackup: $((elapsed_seconds / 60))minutes $((elapsed_seconds % 60))seconds *"
 echo "***********************************************"
-# end mod by JackDaniel
+
 fi
 umount /tmp/bi/root
 umount /tmp/bi/boot
