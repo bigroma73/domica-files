@@ -169,14 +169,14 @@ class DomicaSubMenu(Screen):
 			fields = line.lstrip().rstrip('\n').split()
 			if line[0] == " ":
 				if fields[4] == "/media/hdd":
-					if int(fields[2][:-6]) > 50:
+					if int(fields[2][:-3]) > 50:
 						return 1
 					else:
 						return 0
 			else:
 				try:
 					if fields[5] == "/media/hdd":
-						if int(fields[3][:-6]) > 50:
+						if int(fields[3][:-3]) > 50:
 							return 1
 						else:
 							return 0
