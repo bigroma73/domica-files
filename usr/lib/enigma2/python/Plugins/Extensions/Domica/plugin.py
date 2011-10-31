@@ -56,10 +56,10 @@ class DomicaSubMenu(Screen):
 			<ePixmap pixmap="hd-line_tvpro/buttons/green.png"  position="190,280" size="16,16"  alphatest="blend" />
 			<ePixmap pixmap="hd-line_tvpro/buttons/yellow.png" position="340,280" size="16,16"  alphatest="blend" />
 			<ePixmap pixmap="hd-line_tvpro/buttons/blue.png"   position="490,280" size="16,16"  alphatest="blend" />
-			<widget source="key_red" render="Label" position="65,280" size="120,24" font="Regular;17" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
-			<widget source="key_green"    render="Label" position="215,280" size="120,22" font="Regular;17" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
-			<widget source="key_yellow"   render="Label" position="365,280" size="120,22" font="Regular;17" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
-			<widget source="key_blue"     render="Label" position="515,280" size="120,22" font="Regular;1" valign="top" halign="left" foregroundColor="blue_tux" backgroundColor="blue_tux4" transparent="1" />
+			<widget source="key_red" render="Label" position="65,280" size="120,24" font="Regular;17" valign="top" halign="left" foregroundColor="#999999" backgroundColor="#151515" transparent="1" />
+			<widget source="key_green"    render="Label" position="215,280" size="120,22" font="Regular;17" valign="top" halign="left" foregroundColor="#999999" backgroundColor="#151515" transparent="1" />
+			<widget source="key_yellow"   render="Label" position="365,280" size="120,22" font="Regular;17" valign="top" halign="left" foregroundColor="#999999" backgroundColor="#151515" transparent="1" />
+			<widget source="key_blue"     render="Label" position="515,280" size="120,22" font="Regular;1" valign="top" halign="left" foregroundColor="#999999" backgroundColor="#151515" transparent="1" />
 	</screen>"""
 	def __init__(self,session,sub_m):
 		self.sub_m=sub_m
