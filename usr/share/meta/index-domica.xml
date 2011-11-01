@@ -164,12 +164,6 @@
 			<tag type="Domica" />
 		</prerequisites>
 	</package>
-	<package details="domica-vlc.xml" name="Plugin VLC" packagename="domica-vlc" shortdescription="Plugin VLC for clones">
-		<prerequisites>
-			<tag type="Domica" />
-			<tag type="Multimedia" />
-		</prerequisites>
-	</package>
 	<package details="enigma2-plugin-systemplugins-crossepg-oe1.6.xml" name="Plugin crossepg" packagename="enigma2-plugin-systemplugins-crossepg-oe1.6" shortdescription="enigma2-plugin-systemplugins-crossepg">
 		<prerequisites>
 			<tag type="Domica" />
