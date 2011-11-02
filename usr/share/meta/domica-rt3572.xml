@@ -1,0 +1,17 @@
+<default>
+	  <prerequisites>
+                    <tag type="System" />
+	  </prerequisites>
+          <info>
+                    <author>DMM</author>
+                    <name>domica-rt3572</name>
+                    <packagename>domica-rt3572</packagename>
+                    <shortdescription>rt3572</shortdescription>
+                    <description>Ralink rt3572 package
+                    </description>
+                    <screenshot src="http://www.upload.metabox.ru/dm800/screen/domica.jpg" />
+          </info>
+	  <files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="rt3572" />
+	</files>
+</default>

@@ -176,9 +176,9 @@
 			<tag type="System" />
 		</prerequisites>
 	</package>
-	<package details="domica-rt3070.xml" name="rt3070 wi-fi driver" packagename="rt3070" shortdescription="Ralink rt3070 package">
+	<package details="domica-rt3572.xml" name="rt3572 wi-fi driver" packagename="rt3572" shortdescription="Ralink rt3572 package">
 		<prerequisites>
-			<tag type="Domica" />
+			<tag type="System" />
 		</prerequisites>
 	</package>
 	<package details="domica-rt2870.xml" name="rt2870 wi-fi driver" packagename="rt2870" shortdescription="Ralink rt2870 package">
